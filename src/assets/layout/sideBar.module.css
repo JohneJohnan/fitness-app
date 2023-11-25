@@ -1,0 +1,30 @@
+.sideBar {
+  font-size: calc(.2rem + 1vw + 1vh);
+  width: fit-content;
+  height: 100%;
+  background-color: midnightblue;
+  color: white;
+}
+
+.sideBar > div > div{
+  display: flex;
+  justify-content: start;  
+  align-items: center;
+  gap: calc(2px + 1.5vw);
+  padding: calc(.4rem + 1vh) calc(1px + 1.4vw);
+}
+
+.sideBar img {
+  filter: invert(1);
+  width: calc(.3rem + 1.5vw + 1.5vh);
+}
+
+.logo {
+  padding: 1vh 1.4vw 5vh 1.4vw ;
+  font-size: calc(.3rem + 2vw + 2vh);
+}
+
+.logo img {
+  transform: scaleX(-1);
+  width: calc(.3rem + 2vw + 2vh);
+}

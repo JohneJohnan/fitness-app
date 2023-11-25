@@ -1,10 +1,29 @@
+@font-face {
+  font-family: Sahel;
+  src: url('./assets/fonts/Sahel.eot');
+  src: url('./assets/fonts/Sahel.eot?#iefix') format('embedded-opentype'),
+      url('./assets/fonts/Sahel.woff') format('woff'),
+      url('./assets/fonts/Sahel.ttf') format('truetype');
+  font-weight: normal;
+}
+
 /* Box sizing rules */
 html {
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+  direction: rtl;
+}
+
+#root {
+  height: 100%;
+}
+
 *, *:before, *:after {
   box-sizing: inherit;
+  font-family: Sahel;
 }
 
 /* Remove default margin */
@@ -42,4 +61,8 @@ button:focus {
 img {
   max-width: 100%;
   height: auto;
+}
+
+button:hover {
+  cursor: pointer;
 }
