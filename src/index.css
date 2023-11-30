@@ -7,40 +7,17 @@
   font-weight: normal;
 }
 
-/* Box sizing rules */
 html {
   box-sizing: border-box;
 }
 
 body {
-  height: 100vh;
+  height: 100svh;
   direction: rtl;
-}
-
-aside {
-  grid-area: side;
-}
-
-header {
-  grid-area: header;
-}
-
-main {
-  grid-area: main;
-}
-
-.option {
-  grid-area: option;
 }
 
 #root {
   height: 100%;
-  display: grid;
-  grid-template-rows: min-content 1fr;
-  grid-template-columns: max-content 1fr auto;
-  grid-template-areas:
-    "side header header"
-    "side main   option";
 }
 
 *, *:before, *:after {
@@ -48,43 +25,20 @@ main {
   font-family: Sahel;
 }
 
-/* Remove default margin */
-body,
+/* body,
 h1, h2, h3, h4, h5, h6,
 p,
 ol, ul {
   margin: 0;
   padding: 0;
-}
-
-/* Remove default list styles */
-ol, ul {
-  list-style: none;
-}
-
-/* Remove default font styles for some elements */
-body {
-  font-family: Arial, sans-serif;
-}
-
-/* Remove default hyperlink styles */
-a {
-  text-decoration: none;
-  color: inherit;
-}
+} */
 
 /* Remove outline on focused elements for accessibility */
-a:focus,
+/* a:focus,
 button:focus {
   outline: none;
-}
+} */
 
-/* Set default styles for images to ensure responsiveness */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-button:hover {
+/* button:hover {
   cursor: pointer;
-}
+} */
