@@ -1,0 +1,8 @@
+header  
+  logout
+  bell
+  messages
+  support
+  settings
+  search
+  current path

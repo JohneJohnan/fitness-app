@@ -17,8 +17,30 @@ body {
   direction: rtl;
 }
 
+aside {
+  grid-area: side;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+}
+
+.option {
+  grid-area: option;
+}
+
 #root {
   height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: max-content 1fr auto;
+  grid-template-areas:
+    "side header header"
+    "side main   option";
 }
 
 *, *:before, *:after {
