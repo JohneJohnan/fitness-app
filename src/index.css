@@ -1,44 +1,51 @@
 @font-face {
-  font-family: Sahel;
-  src: url('./assets/fonts/Sahel.eot');
-  src: url('./assets/fonts/Sahel.eot?#iefix') format('embedded-opentype'),
-      url('./assets/fonts/Sahel.woff') format('woff'),
+  font-family: 'Sahel';
+  src: url('./assets/fonts/Sahel.woff2') format('woff2'),
+      url('./assets/fonts/Sahel.eot?#iefix') format('embedded-opentype'),
       url('./assets/fonts/Sahel.ttf') format('truetype');
-  font-weight: normal;
 }
+@font-face {
+  font-family: 'vazir';
+  src: url(./assets/fonts/Vazir.eot), url(./assets/fonts/Vazir.woff);
+}
+@font-face {
+  font-family: 'yekan';
+  src: url(./assets/fonts/Yekan.woff2), url(./assets/fonts/Yekan.ttf);
+}
+@font-face {
+  font-family: 'yekan boom';
+  src: url(./assets/fonts/Yekan\ Boom.woff2), url(./assets/fonts/Yekan\ Boom.ttf);
+}
+@font-face {
+  font-family: 'yekan per';
+  src: url(./assets/fonts/Persian-Yekan.ttf);
+}
+@font-face {
+  font-family: 'rubik';
+  src: url(./assets/fonts/Rubik-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: 'noto naskh';
+  src: url(./assets/fonts/NotoNaskhArabic-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: 'vazirmatn';
+  src: url(./assets/fonts/Vazirmatn-VariableFont_wght.ttf);
+}
+
 
 html {
   box-sizing: border-box;
-}
-
-body {
-  height: 100svh;
   direction: rtl;
 }
 
 #root {
-  height: 100%;
+  height: 100svh;
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
-  font-family: Sahel;
+  /* font-family: 'Sahel' !important; */
+  /* font-family: 'yekan', sans-serif !important; */
+  font-family: 'vazir' !important;
 }
-
-/* body,
-h1, h2, h3, h4, h5, h6,
-p,
-ol, ul {
-  margin: 0;
-  padding: 0;
-} */
-
-/* Remove outline on focused elements for accessibility */
-/* a:focus,
-button:focus {
-  outline: none;
-} */
-
-/* button:hover {
-  cursor: pointer;
-} */

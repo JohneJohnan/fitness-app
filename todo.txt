@@ -1,8 +1,24 @@
-header  
-  logout
-  bell
-  messages
-  support
-  settings
-  search
-  current path
+coach
+  new
+  edit
+  list
+  view
+
+follow
+
+dashboard
+
+login
+
+signin
+
+details
+
+api
+
+
+*aspect ratio fix border maybe boxshadow
+*chips are ugly. maybe thicker font and borders. bgcolor?(close to white) color?(alive, vibrant)
+*boxshadow
+*newex gridize lablels
+*maybe add dividers to exercise/id
