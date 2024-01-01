@@ -2,11 +2,7 @@ import {
   AspectRatio,
   Avatar,
   Box,
-  Button,
   ButtonGroup,
-  Card,
-  CardActions,
-  CardContent,
   Chip,
   Tabs,
   TabList,
@@ -19,7 +15,7 @@ import {
 } from '@mui/joy';
 import { Rating } from '@mui/material';
 import { styled as matStyled } from '@mui/material';
-import { plans } from '../../../dummyData';
+import { plan } from '../../../dummyData';
 import { Icon } from '@iconify/react';
 import { exercise } from '../../../dummyData';
 
@@ -52,24 +48,17 @@ export default function ViewPlan() {
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography level="h1">{plans[0].name}</Typography>
-        {/* <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '10px',
-          }}
-        > */}
+        <Typography level="h1">{plan.name}</Typography>
         <ButtonGroup sx={{ direction: 'ltr' }}>
           <IconButton
             size="lg"
             variant="outlined"
             sx={{
+              width: 55,
               flex: '0 1 auto',
               color: 'black',
               borderColor: 'neutral.500',
-              '& svg': { width: '75%', height: '75%' },
+              '& svg': { width: '55%', height: '55%' },
             }}
           >
             <Icon icon="mi:delete" />
@@ -78,10 +67,11 @@ export default function ViewPlan() {
             size="lg"
             variant="outlined"
             sx={{
+              width: 55,
               flex: '0 1 auto',
               color: 'black',
               borderColor: 'neutral.500',
-              '& svg': { width: '80%', height: '80%' },
+              '& svg': { width: '60%', height: '60%' },
             }}
           >
             <Icon icon="mdi:edit-outline" />
@@ -90,10 +80,11 @@ export default function ViewPlan() {
             size="lg"
             variant="outlined"
             sx={{
+              width: 55,
               flex: '0 1 auto',
-              color: 'red',
-              borderColor: '#bb7777',
-              '& svg': { width: '80%', height: '80%' },
+              color: plan.isFavorite ? 'red' : '#333',
+              borderColor: plan.isFavorite ? '#bb7777' : 'neutral.500',
+              '& svg': { width: '60%', height: '60%' },
             }}
           >
             <Icon icon="ic:round-favorite" />
@@ -141,13 +132,13 @@ export default function ViewPlan() {
             <Box sx={{ display: 'flex', alignItems: 'center', flex: '1 0 auto' }}>
               <Icon icon="gravity-ui:calendar" />
               <Typography level="title-lg" sx={{ mr: 1 }}>
-                <strong>{getDaysPerPlan(plans[0])} روز در هفته</strong>
+                <strong>{getDaysPerPlan(plan)} روز در هفته</strong>
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', flex: '2 0 auto' }}>
               <Icon icon="material-symbols:exercise-outline" />
               <Typography level="title-lg" sx={{ mr: 1 }}>
-                <strong>{getExercisesPerPlan(plans[0])} تمرین در هفته</strong>
+                <strong>{getExercisesPerPlan(plan)} تمرین در هفته</strong>
               </Typography>
             </Box>
           </Box>
@@ -155,7 +146,7 @@ export default function ViewPlan() {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
             <Typography level="h4">خصوصیات</Typography>
             <Box sx={{ display: 'flex', gap: 1.6 }}>
-              {plans[0].tags.map((tag) => (
+              {plan.tags.map((tag) => (
                 <Chip
                   // sx={{mb: .4}}
                   key={tag}
@@ -164,7 +155,6 @@ export default function ViewPlan() {
                   variant="outlined"
                   startDecorator={<Icon icon="mdi:fire" />}
                   // sx={{ bgcolor: 'white', borderColor: 'red', color: 'red' }}
-                  // startDecorator={<Icon icon="mdi:fire" />}
                 >
                   {tag}
                 </Chip>
@@ -188,7 +178,7 @@ export default function ViewPlan() {
             width: 270,
           }}
         >
-          <img src={plans[0].pic}></img>
+          <img src={plan.pic}></img>
         </AspectRatio>
       </Box>
 
@@ -200,7 +190,7 @@ export default function ViewPlan() {
           mt: 5,
           mb: 1,
           borderRadius: 'lg',
-          boxShadow: 'sm',
+          // boxShadow: 'sm',
           overflow: 'auto',
         }}
       >
@@ -229,10 +219,10 @@ export default function ViewPlan() {
         </TabList>
         {['sat', 'sun', 'mon', 'tue', 'wen', 'thu'].map((dayLabel) => (
           <TabPanel key={dayLabel} value={dayLabel}>
-            {!('exercises' in plans[0][dayLabel]) && (
+            {!('exercises' in plan[dayLabel]) && (
               <Typography level="h4">جلسه ای در این روز وجود ندارد.</Typography>
             )}
-            {'exercises' in plans[0][dayLabel] && (
+            {'exercises' in plan[dayLabel] && (
               <>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography level="h4">ساعت شروع جلسه</Typography>
@@ -242,18 +232,18 @@ export default function ViewPlan() {
                     sx={{ p: '2px 8px 0', mr: 2, borderRadius: 'md' }}
                   >
                     {' '}
-                    {plans[0][dayLabel].minute < 10
-                      ? '0' + plans[0][dayLabel].minute
-                      : plans[0][dayLabel].minute}{' '}
+                    {plan[dayLabel].min < 10
+                      ? '0' + plan[dayLabel].min
+                      : plan[dayLabel].min}{' '}
                     :{' '}
-                    {plans[0][dayLabel].hour < 10
-                      ? '0' + plans[0][dayLabel].hour
-                      : plans[0][dayLabel].hour}
+                    {plan[dayLabel].hour < 10
+                      ? '0' + plan[dayLabel].hour
+                      : plan[dayLabel].hour}
                   </Typography>
                 </Box>
 
                 <Box>
-                  {plans[0][dayLabel].exercises.map((ex, i) => (
+                  {plan[dayLabel].exercises.map((ex, i) => (
                     <Box
                       key={i}
                       sx={{

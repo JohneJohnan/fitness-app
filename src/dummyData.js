@@ -3,6 +3,7 @@ import benchImage2 from './assets/images/luejreww.png';
 import dbLateralRaise from './assets/images/Dumbbell-Lateral-Raise.webp';
 import dbLateralRaise2 from './assets/images/glffvewc.png';
 import planPic from './assets/images/header-1-1.jpg';
+import coachPic from './assets/images/images.jfif';
 
 const header = {
   fname: 'فرد',
@@ -85,12 +86,14 @@ export { muscles };
 
 const plan = {
   name: 'برنامه تست',
+  id: 0,
+  isFavorite: false,
   pic: planPic,
   for: '', //id
   tags: ['حرفه ای', 'کاهش وزن', 'حجم گیری'],
   sat: {
     hour: 13,
-    minute: 0,
+    min: 0,
     exercises: [
       {
         name: 'نشر از جانب دمبل',
@@ -142,6 +145,46 @@ const plan = {
   wen: {},
   thu: {},
 };
+export { plan };
+const plans = [plan, plan, plan, plan];
+export { plans };
 
-const plans = [plan,]
-export {plans};
+const coach = {
+  name: 'فرد بی نام',
+  id: 0,
+  speciality: 'مدرک معادل دکتری فیزیولوژی ورزشی',
+  experience: 10,
+  rating: 3,
+  tags: ['کاهش وزن', 'حجم گیری', 'دوستانه', 'جدی', 'قدرت'],
+  price: 500,
+  pic: coachPic,
+  isAvailable: true,
+  description: `لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+  چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.
+  `,
+  email: 'goodcoach@gmail.com',
+  phone: '09123456789',
+};
+export { coach };
+const coaches = [coach, coach, coach];
+export { coaches };
+
+const specialities = [
+  'کارشناس فیزیولوژی و تغذيه ورزشى',
+  'مدرس بين المللي فيتنس دانشگاه تيف (TAFE)',
+];
+
+const trainee = {
+  name: 'فرد بی نام',
+  id: 1234567890,
+  gender: 'مرد',
+  pic: coachPic,
+  email: 'email@gmail.com',
+  phone: '09123456789',
+  height: 170,
+  weight: 96,
+  targetWeight: 70,
+  tags: ['کاهش وزن', 'حجم گیری', 'دوستانه', 'جدی', 'قدرت'],
+  preferredTimes: ['صبح', 'ظهر', 'شب'],
+};
+export { trainee }; 

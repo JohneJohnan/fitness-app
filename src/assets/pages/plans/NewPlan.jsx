@@ -354,7 +354,7 @@ export default function NewPlan() {
             mt: 5,
             mb: 1,
             borderRadius: 'lg',
-            boxShadow: 'sm',
+            // boxShadow: 'sm',
             overflow: 'auto',
           }}
         >

@@ -1,24 +1,21 @@
-coach
-  new
-  edit
-  list
-  view
-
 follow
+edit
+  signup
+header
 
-dashboard
-
-login
-
-signin
-
-details
-
+auth
 api
-
+redux
+loader
+if own coach can rate
+tooltips
+details
+theme
 
 *aspect ratio fix border maybe boxshadow
 *chips are ugly. maybe thicker font and borders. bgcolor?(close to white) color?(alive, vibrant)
+*autocomplete tags can be styled
 *boxshadow
 *newex gridize lablels
 *maybe add dividers to exercise/id
+*add icons for view and pay button in view coach

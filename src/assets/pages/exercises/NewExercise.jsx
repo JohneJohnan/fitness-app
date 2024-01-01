@@ -148,7 +148,7 @@ export default function NewExercise() {
 
       <Box sx={{ mt: 3, display: 'flex' }}>
         {['تصویر اصلی', 'تصویر فرعی'].map((i) => (
-          <Box sx={{ display: 'flex', flex: '1 1 0', flexDirection: 'column', p: 3 }}>
+          <Box key={i} sx={{ display: 'flex', flex: '1 1 0', flexDirection: 'column', p: 3 }}>
             <Box
               sx={{
                 display: 'flex',
@@ -186,6 +186,7 @@ export default function NewExercise() {
             </AspectRatio>
           </Box>
         ))}
+        
       </Box>
 
       <Box sx={{ display: 'flex', mt: 3 }}>
@@ -205,13 +206,13 @@ export default function NewExercise() {
       <Divider sx={{ mt: 1, maxWidth: 200, bgcolor: 'neutral.400' }}></Divider>
       <Box sx={{ display: 'flex' }}>
         {['در مردان', 'در زنان'].map((g) => (
-          <Box sx={{ flex: '1 1 0' }}>
+          <Box key={g} sx={{ flex: '1 1 0' }}>
             <Typography level="body-md" sx={{ mt: 2 }}>
               <strong>{g}</strong>
             </Typography>
             <Divider sx={{ mt: 0.6, maxWidth: 66, bgcolor: 'neutral.400' }}></Divider>
             {strengthLevels.map((i) => (
-              <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+              <Box key={i} sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
                 <Typography level="body-md" sx={{ flex: '0 0 66px' }}>
                   {i}
                 </Typography>
@@ -226,17 +227,25 @@ export default function NewExercise() {
           </Box>
         ))}
       </Box>
-      <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <Box sx={{display: 'flex', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          mt: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Divider sx={{ width: '200px', bgcolor: 'neutral.400', p: '.5 px' }}></Divider>
         </Box>
-          <Button
-            endDecorator={<Icon icon="charm:tick" />}
-            sx={{ mt: 2.5, mb: 1, px: 4, fontSize: 'md', '& svg': { ml: -1.9, mr: 1 } }}
-            onClick={() => dispatch({ type: 'SEND_PLAN' })}
-          >
-            تایید برنامه
-          </Button>
+        <Button
+          endDecorator={<Icon icon="charm:tick" />}
+          sx={{ mt: 2.5, mb: 1, px: 4, fontSize: 'md', '& svg': { ml: -1.9, mr: 1 } }}
+          onClick={() => dispatch({ type: 'SEND_PLAN' })}
+        >
+          تایید برنامه
+        </Button>
       </Box>
     </>
   );

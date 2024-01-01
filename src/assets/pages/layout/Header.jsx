@@ -1,9 +1,10 @@
 import { Avatar, Box, IconButton, Sheet, Stack, Typography } from '@mui/joy';
 import { header } from '../../../dummyData.js';
-import { calculateSize } from '@iconify/react';
 import { Icon } from '@iconify/react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <Stack
       direction="row"
@@ -47,7 +48,7 @@ export default function Header() {
         <IconButton>
           <Icon icon="ph:bell" />
         </IconButton>
-        <IconButton sx={{ '& svg': {transform: 'rotate(180deg)', width: '80%'} }}>
+        <IconButton sx={{ '& svg': {transform: 'rotate(180deg)', width: '80%'} }} onClick={()=>navigate('/login')}>
           <Icon icon="icon-park-outline:logout" />
         </IconButton>
       </Stack>

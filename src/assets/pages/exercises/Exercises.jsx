@@ -13,6 +13,7 @@ import {
 } from '@mui/joy';
 import { Icon } from '@iconify/react';
 import { exercise } from '../../../dummyData';
+import { useNavigate } from 'react-router-dom';
 
 //delete
 //open
@@ -24,6 +25,7 @@ import { exercise } from '../../../dummyData';
 //calory
 
 export default function Exercises() {
+  const navigate = useNavigate();
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -32,6 +34,7 @@ export default function Exercises() {
           size="lg"
           endDecorator={<Icon icon="mingcute:add-fill" />}
           sx={{ '& svg': { ml: -2, mr: 1 } }}
+          onClick={()=>navigate('new')}
         >
           تمرین جدید
         </Button>
@@ -55,7 +58,6 @@ export default function Exercises() {
             backgroundColor: 'primary.50',
           }}
         >
-          {/* <CardOverflow> */}
           <AspectRatio
             ratio={1}
             sx={{
@@ -67,7 +69,6 @@ export default function Exercises() {
           >
             <img src={exercise.mainImage}></img>
           </AspectRatio>
-          {/* </CardOverflow> */}
           <CardContent>
             <Typography level="title-lg" sx={{ mb: '8px' }}>
               {exercise.name}
@@ -98,7 +99,7 @@ export default function Exercises() {
           </CardContent>
           <CardActions>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-              <Button sx={{ flex: '1 1 auto' }}>مشاهده</Button>
+              <Button sx={{ flex: '1 1 auto' }} onClick={()=>navigate('0')}>مشاهده</Button>
               <Box sx={{ flex: '1.5 1 0' }}></Box>
               {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '1px' }}> */}
               <ButtonGroup sx={{ direction: 'ltr' }}>
@@ -123,6 +124,7 @@ export default function Exercises() {
                     borderColor: 'neutral.500',
                     '& svg': { width: '80%', height: '80%' },
                   }}
+                  onClick={()=>navigate('0/edit')}
                 >
                   <Icon icon="mdi:edit-outline" />
                 </IconButton>

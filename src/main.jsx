@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import Root from './Root.jsx';
+import Root from './assets/pages/layout/Root.jsx';
 import Dashboard from './assets/pages/layout/Dashboard.jsx';
 import ErrorPage from './assets/pages/ErrorPage.jsx';
 import Exercises from './assets/pages/exercises/Exercises.jsx';
@@ -14,6 +14,12 @@ import NewPlan from './assets/pages/plans/NewPlan.jsx';
 import ViewPlan from './assets/pages/plans/ViewPlan.jsx';
 import EditPlan from './assets/pages/plans/EditPlan.jsx';
 import { Box } from '@mui/joy';
+import ViewCoach from './assets/pages/coaches/ViewCoach.jsx';
+import Coaches from './assets/pages/coaches/Coaches.jsx';
+import Login from './assets/pages/sign/Login.jsx';
+import Signup from './assets/pages/sign/Signup.jsx';
+import LoggedInRoot from './assets/pages/layout/LoggedInRoot.jsx';
+import ViewProfile from './assets/pages/ViewProfile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,20 +27,31 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Dashboard /> },
-      { path: 'exercises/', element: <Exercises /> },
-      { path: 'exercises/new/', element: <NewExercise /> },
-      { path: 'exercises/:id/', element: <ViewExercise /> },
-      { path: 'exercises/:id/edit/', element: <EditExercise /> },
-      { path: 'plans/', element: <Plans /> },
-      { path: 'plans/new/', element: <NewPlan /> },
-      { path: 'plans/:id/', element: <ViewPlan /> },
-      { path: 'plans/:id/edit/', element: <EditPlan /> },
+      {
+        path: '',
+        element: <LoggedInRoot />,
+        children: [
+          { index: true, element: <Dashboard /> }, // todo
+          { path: 'exercises/', element: <Exercises /> },
+          { path: 'exercises/new/', element: <NewExercise /> },
+          { path: 'exercises/:id/', element: <ViewExercise /> },
+          { path: 'exercises/:id/edit/', element: <EditExercise /> },
+          { path: 'plans/', element: <Plans /> },
+          { path: 'plans/new/', element: <NewPlan /> },
+          { path: 'plans/:id/', element: <ViewPlan /> },
+          { path: 'plans/:id/edit/', element: <EditPlan /> },
+          { path: 'coaches/:id/', element: <ViewCoach /> },
+          { path: 'coaches/', element: <Coaches /> },
+          { path: 'viewProfile/:id/', element: <ViewProfile /> },
+        ],
+      },
+      { path: 'login/', element: <Login />, errorElement: <ErrorPage /> },
+      { path: 'signup/', element: <Signup />, errorElement: <ErrorPage /> },
     ],
   },
 ]);
 
-const t = 'فیتنس تمرین برنامه نام تایید جدید عکس';
+const t = 'فیتنس تمرین برنامه نام تایید جدید ab12';
 const tt = 'abcd';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
