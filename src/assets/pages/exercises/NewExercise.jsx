@@ -3,18 +3,17 @@ import {
   Box,
   Divider,
   Input,
-  Stack,
   Typography,
   Button,
   AspectRatio,
   Textarea,
-  Table,
 } from '@mui/joy';
 import { Icon } from '@iconify/react';
 import { Rating } from '@mui/material';
 import { styled as matStyled } from '@mui/material';
 import { muscles } from '../../../dummyData';
 import { styled } from '@mui/joy';
+import { useRef, useState } from 'react';
 import { exercise } from '../../../dummyData';
 
 const strengthLevels = ['تازه کار', 'مبتدی', 'متوسط', 'پیشرفته', 'خبره'];
@@ -44,6 +43,20 @@ const StyledRating = matStyled(Rating)({
 });
 
 export default function NewExercise() {
+  const name = useRef('');
+  const [ratingValue, setRatingValue] = useState(0);
+  const [mainTargetMusclesValue, setMainTargetMuscles] = useState([]);
+  const [secondaryTargetMusclesValue, setSecondaryTargetMuscles] = useState([]);
+  const [table, setTable] = useState([
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+  ]);
+  const howToDescription = useRef('');
+  const description = useRef('');
+
   return (
     <>
       <Typography level="h1">تمرین جدید</Typography>
@@ -51,16 +64,25 @@ export default function NewExercise() {
 
       <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 3 }}>
         <Box sx={{ mt: 4, display: 'flex', alignItems: 'center', flex: '1 0 auto' }}>
-          <Typography level="body-lg" sx={{ ml: 2.1, flex: '0 0 max-content' }}>
+          <Typography level="body-lg" sx={{ mr: 0.8, ml: 2, flex: '0 0 max-content' }}>
             عنوان تمرین
           </Typography>
-          <Input placeholder="اینجا تایپ کنید..." sx={{ flex: '0 0 207px', ml: 3 }}></Input>
+          <Input
+            defaultValue={exercise.name}
+            slotProps={{ input: { ref: name } }}
+            placeholder="اینجا تایپ کنید..."
+            sx={{ flex: '0 0 207px', ml: 3, py: 0.4 }}
+          ></Input>
         </Box>
         <Box sx={{ mt: 3, display: 'flex', alignItems: 'center', flex: '1 0 auto' }}>
           <Typography level="body-lg" sx={{ ml: 2, flex: '0 0 max-content' }}>
             درجه سختی
           </Typography>
           <StyledRating
+            defaultValue={exercise.difficulty}
+            onChange={(event, newValue) => {
+              setRatingValue(newValue);
+            }}
             dir="ltr"
             icon={<Icon icon="mingcute:fitness-fill" fontSize="34px" />}
             emptyIcon={<Icon icon="mingcute:fitness-line" fontSize="34px" />}
@@ -72,10 +94,11 @@ export default function NewExercise() {
           عضلات اصلی
         </Typography>
         <Autocomplete
+          defaultValue={exercise.mainTargetMuscles}
           multiple
           placeholder="عضله ها را انتخاب کنید..."
           options={muscles}
-          // getOptionLabel={(option) => option}
+          getOptionLabel={(option) => option}
           // getOptionDisabled={(option) => {
           //   'exercises' in props.state[props.dayLabel]
           //     ? props.state[props.dayLabel].exercises.some(
@@ -85,19 +108,23 @@ export default function NewExercise() {
           // }}
           // value={allExercises.find((ex) => ex.name === props.exObj.name)}
           sx={{
+            py: 0.4,
             '& .MuiChip-label': { px: '4px', py: '1px' },
-            // '& .MuiChip-root': { color: 'red', border: '1px solid red' },
+            '& .MuiChip-root': {
+              color: 'primary.500',
+              border: '1px solid',
+              borderColor: 'primary.500',
+              mr: 0.2,
+            },
+            '& .MuiChip-root svg': { color: 'primary.500' },
           }}
           // startDecorator={<Icon icon="mdi:fire" />}
           noOptionsText={<i>هیچ موردی مطابقت ندارد</i>}
-          // onChange={(e, value, reason) => {
-          //   if (reason === 'selectOption') {
-          //     dispatch({
-          //       type: 'CHANGE_MAIN_TARGET',
-          //       val: value.name,
-          //     });
-          //   }
-          // }}
+          onChange={(e, value, reason) => {
+            if (reason === 'selectOption') {
+              setMainTargetMuscles(value);
+            }
+          }}
         />
       </Box>
 
@@ -106,10 +133,11 @@ export default function NewExercise() {
           عضلات فرعی
         </Typography>
         <Autocomplete
+          defaultValue={exercise.secondaryTargetMuscles}
           multiple
           placeholder="عضله ها را انتخاب کنید..."
           options={muscles}
-          // getOptionLabel={(option) => option}
+          getOptionLabel={(option) => option}
           // getOptionDisabled={(option) => {
           //   'exercises' in props.state[props.dayLabel]
           //     ? props.state[props.dayLabel].exercises.some(
@@ -119,27 +147,46 @@ export default function NewExercise() {
           // }}
           // value={allExercises.find((ex) => ex.name === props.exObj.name)}
           sx={{
+            py: 0.4,
             '& .MuiChip-label': { px: '4px', py: '1px' },
-            // '& .MuiChip-root': { color: 'red', border: '1px solid red' },
+            '& .MuiChip-root': {
+              color: 'primary.500',
+              border: '1px solid',
+              borderColor: 'primary.500',
+              mr: 0.2,
+            },
+            '& .MuiChip-root svg': { color: 'primary.500' },
           }}
           // startDecorator={<Icon icon="mdi:fire" />}
           noOptionsText={<i>هیچ موردی مطابقت ندارد</i>}
-          // onChange={(e, value, reason) => {
-          //   if (reason === 'selectOption') {
-          //     dispatch({
-          //       type: 'CHANGE_MAIN_TARGET',
-          //       val: value.name,
-          //     });
-          //   }
-          // }}
+          onChange={(e, value, reason) => {
+            if (reason === 'selectOption') {
+              setSecondaryTargetMuscles(value);
+            }
+          }}
         />
       </Box>
 
+      <Box sx={{ display: 'flex', mt: 3 }}>
+        <Typography level="body-lg" sx={{ ml: 2, mr: 3.3 }}>
+          توضیحات
+        </Typography>
+        <Textarea
+          defaultValue={exercise.description}
+          slotProps={{ textarea: { ref: description } }}
+          minRows={2}
+          placeholder="اینجا تایپ کنید..."
+          sx={{ flex: '0 1 380px' }}
+        ></Textarea>
+      </Box>
+
       <Box sx={{ display: 'flex', mt: 5 }}>
-        <Typography level="body-lg" sx={{ ml: 2 }}>
+        <Typography level="body-lg" sx={{ ml: 2, mr: 6.1 }}>
           مراحل
         </Typography>
         <Textarea
+          defaultValue={exercise.howToDescription}
+          slotProps={{ textarea: { ref: howToDescription } }}
           minRows={2}
           placeholder="اینجا تایپ کنید..."
           sx={{ flex: '0 1 400px' }}
@@ -147,8 +194,8 @@ export default function NewExercise() {
       </Box>
 
       <Box sx={{ mt: 3, display: 'flex' }}>
-        {['تصویر اصلی', 'تصویر فرعی'].map((i) => (
-          <Box key={i} sx={{ display: 'flex', flex: '1 1 0', flexDirection: 'column', p: 3 }}>
+        {['تصویر اصلی', 'تصویر فرعی'].map((img, i) => (
+          <Box key={img} sx={{ display: 'flex', flex: '1 1 0', flexDirection: 'column', p: 3 }}>
             <Box
               sx={{
                 display: 'flex',
@@ -158,7 +205,7 @@ export default function NewExercise() {
               }}
             >
               <Typography level="body-lg" sx={{ ml: 2 }}>
-                {i}
+                {img}
               </Typography>
               <Button
                 component="label"
@@ -182,22 +229,16 @@ export default function NewExercise() {
                 borderStyle: 'solid',
               }}
             >
-              <img src={exercise.secondaryImage} />
+              {exercise.secondaryImage ? (
+                <img src={exercise.secondaryImage} />
+              ) : (
+                <Box>
+                  <Icon icon="fa:picture-o" width="110px" height="110px" color="#abc" />
+                </Box>
+              )}
             </AspectRatio>
           </Box>
         ))}
-        
-      </Box>
-
-      <Box sx={{ display: 'flex', mt: 3 }}>
-        <Typography level="body-lg" sx={{ ml: 2 }}>
-          توضیحات
-        </Typography>
-        <Textarea
-          minRows={2}
-          placeholder="اینجا تایپ کنید..."
-          sx={{ flex: '0 1 380px' }}
-        ></Textarea>
       </Box>
 
       <Typography level="title-lg" sx={{ mt: 4 }}>
@@ -205,18 +246,26 @@ export default function NewExercise() {
       </Typography>
       <Divider sx={{ mt: 1, maxWidth: 200, bgcolor: 'neutral.400' }}></Divider>
       <Box sx={{ display: 'flex' }}>
-        {['در مردان', 'در زنان'].map((g) => (
+        {['در مردان', 'در زنان'].map((g, i) => (
           <Box key={g} sx={{ flex: '1 1 0' }}>
             <Typography level="body-md" sx={{ mt: 2 }}>
               <strong>{g}</strong>
             </Typography>
             <Divider sx={{ mt: 0.6, maxWidth: 66, bgcolor: 'neutral.400' }}></Divider>
-            {strengthLevels.map((i) => (
-              <Box key={i} sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+            {strengthLevels.map((s, j) => (
+              <Box key={s} sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
                 <Typography level="body-md" sx={{ flex: '0 0 66px' }}>
-                  {i}
+                  {s}
                 </Typography>
                 <Input
+                  onChange={(e) => {
+                    setTable((prev) => {
+                      let temp = prev;
+                      temp[j][i] = e.target.value;
+                      return temp;
+                    });
+                  }}
+                  defaultValue={exercise.strengthStandardsTable[j][i]}
                   size="sm"
                   type="number"
                   sx={{ minWidth: '70px', maxWidth: '70px' }}

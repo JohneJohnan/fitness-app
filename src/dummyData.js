@@ -13,11 +13,12 @@ const header = {
 export { header };
 
 const exercise = {
+  id: '22',
   name: 'پرس سینه هالتر',
+  isFavorite: true,
   mainTargetMuscles: ['سینه', 'دلتای جلو'],
   secondaryTargetMuscles: ['پشت بازو'],
   difficulty: 2,
-  aerobic: false, //some kinda checkbox
   mainImage: benchImage,
   secondaryImage: benchImage2,
   strengthStandardsTable: [

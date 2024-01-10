@@ -8,6 +8,7 @@ export default function Coaches() {
       <Typography level="h1">مربیان</Typography>
       <Divider sx={{ mt: 2, mb: 5 }}></Divider>
       <Box sx={{ display: 'grid', gridAutoColumns: '1fr', gap: 5, mb: 1 }}>
+        {coaches.length === 0 && <Typography fontWeight='sm' level='h3'>هیچ مربی ای وجود ندارد!</Typography>}
         {coaches.map((coach, i) => (
           <Coach key={i} coach={coach} disablePayment />
         ))}

@@ -1,5 +1,10 @@
-import { Sheet, Typography } from "@mui/joy";
+import { Sheet, Typography } from '@mui/joy';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Dashboard() {
-  return <Typography level="h1">خالی</Typography>;
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate('/exercises');
+  }, []);
 }

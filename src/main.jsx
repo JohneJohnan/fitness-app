@@ -13,13 +13,15 @@ import Plans from './assets/pages/plans/Plans.jsx';
 import NewPlan from './assets/pages/plans/NewPlan.jsx';
 import ViewPlan from './assets/pages/plans/ViewPlan.jsx';
 import EditPlan from './assets/pages/plans/EditPlan.jsx';
-import { Box } from '@mui/joy';
 import ViewCoach from './assets/pages/coaches/ViewCoach.jsx';
 import Coaches from './assets/pages/coaches/Coaches.jsx';
 import Login from './assets/pages/sign/Login.jsx';
 import Signup from './assets/pages/sign/Signup.jsx';
 import LoggedInRoot from './assets/pages/layout/LoggedInRoot.jsx';
 import ViewProfile from './assets/pages/ViewProfile.jsx';
+import { Provider } from 'react-redux';
+import store from './assets/store/index.js';
+import { Box } from '@mui/joy';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
         path: '',
         element: <LoggedInRoot />,
         children: [
-          { index: true, element: <Dashboard /> }, // todo
+          { index: true, element: <Dashboard /> },
           { path: 'exercises/', element: <Exercises /> },
           { path: 'exercises/new/', element: <NewExercise /> },
           { path: 'exercises/:id/', element: <ViewExercise /> },
@@ -52,12 +54,15 @@ const router = createBrowserRouter([
 ]);
 
 const t = 'فیتنس تمرین برنامه نام تایید جدید ab12';
-const tt = 'abcd';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
   // </React.StrictMode>
+
+
   // <Box sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between'}}>
   //   {['yekan', 'vazir', 'Sahel','yekan per', 'rubik', 'noto naskh', 'vazirmatn'].map((i) => (
   //     <Box key={i}>

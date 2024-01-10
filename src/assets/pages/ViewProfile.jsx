@@ -288,7 +288,7 @@ export default function ViewProfile() {
               }}
             >
               {['صبح', 'عصر', 'شب'].map((item) => (
-                <ListItem key={item} sx={{ '& input': { position: 'relative' } }}>
+                <ListItem key={item} sx={{ '& input': { position: 'relative' }, '& *:hover': {bgcolor: 'inherit'} }}>
                   <Checkbox
                     disableIcon
                     overlay
@@ -299,10 +299,11 @@ export default function ViewProfile() {
                     slotProps={{
                       action: ({ checked }) => ({
                         sx: {
+                          ':hover': {bgcolor: checked ? 'primary.100' : 'transparent'},
                           borderColor: checked ? 'primary.500' : 'red',
                           borderRadius: 7,
                           borderWidth: '2px',
-                          bgcolor: checked ? '#f2f5ff' : 'transparent',
+                          bgcolor: checked ? 'primary.100' : 'transparent',
                         },
                       }),
                     }}

@@ -1,7 +1,25 @@
-import { Box, Divider, Input, Tabs, TabList, Tab, Typography, TabPanel, Button } from '@mui/joy';
+import {
+  Box,
+  Autocomplete,
+  AutocompleteOption,
+  ListItemDecorator,
+  ListItemContent,
+  Avatar,
+  Divider,
+  Input,
+  Tabs,
+  TabList,
+  Tab,
+  Typography,
+  TabPanel,
+  Button,
+} from '@mui/joy';
 import { useReducer } from 'react';
 import { Icon } from '@iconify/react';
 import Exercise from './Exercise';
+import { trainee } from '../../../dummyData';
+
+const trainees = [trainee, trainee, trainee, trainee];
 
 function falseIfError(a, b) {
   try {
@@ -26,6 +44,8 @@ function reducerFn(state, action) {
         //unvalid style and error
         return state;
       } else return { ...state, name: state.uncheckedName };
+    case 'CHANGE_FOR':
+      return { ...state, for: action.val };
     case 'CHANGE_HOUR':
       if (
         state[action.dayLabel].minute >= 0 &&
@@ -336,6 +356,31 @@ export default function NewPlan() {
             sx={{ maxWidth: '250px' }}
           />
         </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Typography level="body-lg" sx={{ ml: 2 }}>
+            برای
+          </Typography>
+          <Autocomplete
+            placeholder="ورزشکار را انتخاب کنید..."
+            options={trainees}
+            getOptionLabel={(option) => option.name}
+            renderOption={(props, option) => (
+              <AutocompleteOption {...props} key={option.id}>
+                <ListItemDecorator>
+                  <Avatar src={option.pic} sx={{ width: '40px', height: '40px', ml: 2 }} />
+                </ListItemDecorator>
+                <ListItemContent>{option.name}</ListItemContent>
+              </AutocompleteOption>
+            )}
+            // value={allExercises.find((ex) => ex.name === props.exObj.name)}
+            noOptionsText={<i>هیچ موردی مطابقت ندارد</i>}
+            onChange={(e, value, reason) => {
+              if (reason === 'selectOption') {
+                dispatch({ type: 'CHANGE_FOR', val: value.id });
+              }
+            }}
+          />
+        </Box>
         <Button
           variant="soft"
           endDecorator={<Icon icon="charm:tick" />}
@@ -472,7 +517,7 @@ export default function NewPlan() {
             sx={{ mt: 3, mb: 1, px: 4, fontSize: 'md', '& svg': { ml: -1.9, mr: 1 } }}
             onClick={() => dispatch({ type: 'SEND_PLAN' })}
           >
-            تایید برنامه  
+            تایید برنامه
           </Button>
         </Box>
       )}

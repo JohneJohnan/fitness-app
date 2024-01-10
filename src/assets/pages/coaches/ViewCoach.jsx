@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Button, Chip, Divider, Typography } from '@mui/joy';
+import { AspectRatio, Box, Button, Chip, Divider, IconButton, Typography } from '@mui/joy';
 import { coach } from '../../../dummyData';
 import { Rating } from '@mui/material';
 import { Icon } from '@iconify/react';
@@ -107,12 +107,22 @@ function Coach(props) {
             </Typography>
           </Box>
           {!props.disablePayment && (
-            <Button size="lg" sx={{ px: 4 }}> {/** todo */}
+            <Button
+              size="lg"
+              sx={{ pr: 4, pl: 2, '& svg': { mr: 1 } }}
+              endDecorator={<Icon icon="mingcute:card-pay-fill" width="20" height="20" />}
+            >
+              {/** todo */}
               پرداخت
             </Button>
           )}
           {props.disablePayment && (
-            <Button size="lg" sx={{ px: 4 }} onClick={()=>navigate(props.coach.id.toString())}>
+            <Button
+              size="lg"
+              sx={{ pr: 4, pl: 2, '& svg': { mr: 1 } }}
+              endDecorator={<Icon icon="carbon:view-filled" width="18px" height="18px" />}
+              onClick={() => navigate(props.coach.id.toString())}
+            >
               مشاهده
             </Button>
           )}

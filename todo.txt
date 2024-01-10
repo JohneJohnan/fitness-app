@@ -1,21 +1,210 @@
-follow
-edit
-  signup
-header
+rate own coach
+add icons
+click ex from plan
 
-auth
-api
-redux
-loader
-if own coach can rate
-tooltips
-details
-theme
+{loading ? (
+        <div>loading</div>
+      ) : (
+        <>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography level="h1">{exercise.title}</Typography>
+            {/* <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '10px',
+          }}
+        > */}
+            <ButtonGroup sx={{ direction: 'ltr' }}>
+              <IconButton
+                size="lg"
+                variant="outlined"
+                onClick={() => setModalOpen(true)}
+                sx={{
+                  flex: '0 1 auto',
+                  color: 'black',
+                  borderColor: 'neutral.500',
+                  '& svg': { width: '75%', height: '75%' },
+                }}
+              >
+                <Icon icon="mi:delete" />
+              </IconButton>
+              <IconButton
+                size="lg"
+                variant="outlined"
+                sx={{
+                  flex: '0 1 auto',
+                  color: 'black',
+                  borderColor: 'neutral.500',
+                  '& svg': { width: '80%', height: '80%' },
+                }}
+              >
+                <Icon icon="mdi:edit-outline" />
+              </IconButton>
+              <IconButton
+                size="lg"
+                variant="outlined"
+                sx={{
+                  flex: '0 1 auto',
+                  color: 'red',
+                  borderColor: '#bb7777',
+                  '& svg': { width: '80%', height: '80%' },
+                }}
+                onClick={() => {
+                  setopenSnackbar(true);
+                }}
+              >
+                <Icon icon="ic:round-favorite" />
+              </IconButton>
+            </ButtonGroup>
+            <Snackbar
+              variant="soft"
+              color="success"
+              size="lg"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              startDecorator={<Icon icon="ep:success-filled" width="24px" height="24px" />}
+              open={openSnackbar}
+              autoHideDuration={2000}
+              onClose={() => setopenSnackbar(false)}
+            >
+              {exercise.title}
+              {exercise.favorite ? 'به تمرینات برگزیده اضافه شد.' : 'از تمرینات برگزیده حذف شد.'}
+            </Snackbar>
+            <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+              <ModalDialog variant="outlined" role="alertdialog">
+                <DialogTitle sx={{ alignItems: 'center' }}>
+                  <Icon icon="pajamas:warning-solid" /> حذف تمرین
+                </DialogTitle>
+                <Divider />
+                <DialogContent>
+                  آیا واقعا می خواهید تمرین {exercise.title} حذف شود؟
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    variant="solid"
+                    color="danger"
+                    onClick={() => {
+                      navigate('/exercises');
+                    }}
+                  >
+                    حذف کردن
+                  </Button>
+                  <Button variant="plain" color="neutral" onClick={() => setModalOpen(false)}>
+                    لغو
+                  </Button>
+                </DialogActions>
+              </ModalDialog>
+            </Modal>
+            {/* </Box> */}
+          </Box>
+          <Divider sx={{ mt: 2, mb: 4 }}></Divider>
+          {console.log(exercise)}
+          {'summary' in exercise &&
+            exercise.summary.split('\n').map((line, i) => (
+              <Typography key={i} level="body-lg" sx={{ textAlign: 'justify', my: 2 }}>
+                {line}
+              </Typography>
+            ))}
+          <AspectRatio
+            variant="outlined"
+            ratio={1}
+            objectFit="cover"
+            sx={{ borderRadius: 6, mt: 4, mb: 2, mx: 'auto', maxWidth: '520px' }}
+          >
+            {/* <img src={exercise.mainImage}></img> */}
+          </AspectRatio>
+          <Typography level="h2" sx={{ mt: 4 }}>
+            مراحل انجام {exercise.title}
+          </Typography>
+          <Divider sx={{ width: 360, mt: 1.4, mb: 2 }} />
+          <List component="ol" marker="decimal">
+            {exercise.summary.split('\n').map((step, i) => (
+              <ListItem key={i}>{step}</ListItem>
+            ))}
+          </List>
 
-*aspect ratio fix border maybe boxshadow
-*chips are ugly. maybe thicker font and borders. bgcolor?(close to white) color?(alive, vibrant)
-*autocomplete tags can be styled
-*boxshadow
-*newex gridize lablels
-*maybe add dividers to exercise/id
-*add icons for view and pay button in view coach
+          <Typography level="h2" sx={{ mt: 2 }}>
+            عضلات درگیر در {exercise.title}
+          </Typography>
+          <Divider sx={{ width: 420, mt: 1.4, mb: 2 }} />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ flex: '1 1 0' }}>
+              <Typography level="title-lg" sx={{ mt: 6 }}>
+                عضلات درگیر اصلی:
+              </Typography>
+              <Divider sx={{ width: 155, mt: 1.3, mb: 2 }} />
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                {exercise['main_muscles'].map((target, index) => (
+                  <Chip
+                    key={index}
+                    size="lg"
+                    sx={{ bgcolor: 'white', borderColor: 'red', color: 'red' }}
+                    startDecorator={<Icon icon="mdi:fire" />}
+                    variant="outlined"
+                  >
+                    {target}
+                  </Chip>
+                ))}
+              </Box>
+              <Typography level="title-lg" sx={{ mt: 6 }}>
+                عضلات درگیر فرعی:
+              </Typography>
+              <Divider sx={{ height: '1px', width: 150, mt: 1.3, mb: 2 }} />
+              <Box>
+                {exercise['sub_muscles'].map((target, index) => (
+                  <Chip
+                    key={index}
+                    size="lg"
+                    sx={{ bgcolor: 'white', borderColor: 'blue', color: 'blue' }}
+                    startDecorator={<Icon icon="charm:tick" />}
+                    variant="outlined"
+                  >
+                    {target}
+                  </Chip>
+                ))}
+              </Box>
+            </Box>
+            <AspectRatio ratio={1} objectFit="cover" sx={{ flex: '1 1 0' }}>
+              {/* <img src={exercise.secondaryImage} /> */}
+            </AspectRatio>
+          </Box>
+
+          <Typography level="h2" sx={{ mt: 2 }}>
+            وزن های استاندارد قدرت در {exercise.title}
+          </Typography>
+          <Divider sx={{ width: 530, mt: 1.3, mb: 5 }} />
+          <Sheet></Sheet>
+          <Table
+            size="lg"
+            variant="outlined"
+            stripe="odd"
+            sx={{
+              mx: 'auto',
+              mb: 3,
+              maxWidth: '560px',
+              borderRadius: 4,
+              '& th': { textAlign: 'start' },
+            }}
+          >
+            <thead>
+              <tr>
+                <th>سطح قدرت</th>
+                <th>مردان</th>
+                <th>زنان</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exercise.strengthLevels.map((l, i) => (
+                <tr key={i}>
+                  <td>
+                    <strong>{strengthLevels[i]}</strong>
+                  </td>
+                  <td>{weight_numbers_males[i]}</td>
+                  <td>{weight_numbers_females[i]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </>
+      )}

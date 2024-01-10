@@ -1,8 +1,11 @@
 import { Icon } from '@iconify/react';
-import { Box, Button, FormControl, FormLabel, Input, Link, Sheet, Typography } from '@mui/joy';
-import CssBaseline from '@mui/joy/CssBaseline';
+import { Box, Button, Input, Sheet, Snackbar, Typography } from '@mui/joy';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../../store/user';
+import { login } from '../../api';
+import { isValidNumber, isValidString } from '../../utils';
 
 const inputStyles = {
   '--Input-paddingInline': '8px',
@@ -12,7 +15,15 @@ const inputStyles = {
 export { inputStyles };
 
 export default function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const usernameRef = useRef();
+  const passwordRef = useRef();
+  const [openSnackbar, setopenSnackbar] = useState(false);
+  const [snackbarContent, setSnackbarContent] = useState('');
+  const [usernameValid, setUsernameValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
+
   return (
     <>
       <Box
@@ -77,26 +88,69 @@ export default function Login() {
               نام کاربری
             </Typography>
             <Input
+              error={!usernameValid}
               size="lg"
               startDecorator={<Icon icon="mdi:user" width="30" height="30" />}
               sx={{ ...inputStyles }}
+              slotProps={{ input: { ref: usernameRef } }}
             />
-            {/* <Typography sx={{placeSelf: 'center end'}}>ایمیل</Typography> */}
-            {/* <Input type= 'email' /> */}
             <Typography level="title-lg" sx={{ placeSelf: 'center end' }}>
               رمز عبور
             </Typography>
             <Input
+              error={!passwordValid}
               size="lg"
               type="password"
               sx={{ ...inputStyles }}
+              slotProps={{ input: { ref: passwordRef } }}
               startDecorator={<Icon icon="basil:key-solid" width="28" height="28" />}
             />
-            {/* <Typography sx={{placeSelf: 'center end'}}>تکرار رمز</Typography>
-            <Input type= 'email' /> */}
-            <Button size="lg" sx={{ width: '100%', gridColumn: '1/3' }} onClick={()=>navigate('/exercises')}>
+            <Button
+              size="lg"
+              sx={{ width: '100%', gridColumn: '1/3' }}
+              onClick={async () => {
+                if (!isValidNumber(Number(usernameRef.current.value))) {
+                  setUsernameValid(false);
+                  setSnackbarContent('نام کاربری نامعتبر است! (باید عدد باشد)');
+                  setopenSnackbar(true);
+                  return;
+                }
+                if (!isValidString(passwordRef.current.value)) {
+                  setPasswordValid(false);
+                  setSnackbarContent('رمز عبور را وارد کنید!');
+                  setopenSnackbar(true);
+                  return;
+                }
+                const data = await login({
+                  id: Number(usernameRef.current.value),
+                  password: passwordRef.current.value,
+                });
+                if ('error' in data) {
+                  setPasswordValid(false);
+                  setUsernameValid(false);
+                  setSnackbarContent(data.error);
+                  setopenSnackbar(true);
+                } else {
+                  //   localStorage.setItem('token', response.json().token);
+                  dispatch(userActions.changeUser(data));
+                  navigate('/exercises');
+                }
+              }}
+            >
               ورود
             </Button>
+            <Snackbar
+              variant="soft"
+              color="danger"
+              size="lg"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              startDecorator={<Icon icon="clarity:error-solid" width="24px" height="24px" />}
+              open={openSnackbar}
+              autoHideDuration={2000}
+              onClose={() => setopenSnackbar(false)}
+            >
+              {snackbarContent}
+            </Snackbar>
           </Box>
           <Typography level="body-md" sx={{ mt: 5 }}>
             حساب کاربری ندارید؟
@@ -109,10 +163,20 @@ export default function Login() {
               justifyContent: 'space-between',
             }}
           >
-            <Button size="lg" sx={{ px: 3.5 }} variant="soft" onClick={()=>navigate('/signup')}>
+            <Button
+              size="lg"
+              sx={{ px: 3.5 }}
+              variant="soft"
+              onClick={() => navigate('/signup?usertype=trainee')}
+            >
               ثبت نام کاربران
             </Button>
-            <Button size="lg" sx={{ px: 3.5 }} variant="soft">
+            <Button
+              size="lg"
+              sx={{ px: 3.5 }}
+              variant="soft"
+              onClick={() => navigate('/signup?usertype=coach')}
+            >
               ثبت نام مربیان
             </Button>
           </Box>
